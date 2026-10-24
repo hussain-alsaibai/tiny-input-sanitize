@@ -1,0 +1,51 @@
+# tiny-input-sanitize
+
+Zero-dependency input sanitization for 6 contexts: HTML, SQL literal, shell
+argument, filename, log, and JSONPath. Single file.
+
+## Run
+
+```bash
+pip install tiny-input-sanitize
+```
+
+## API
+
+- `sanitize_text(value, *, context=None, allow=None, deny=None,
+  max_length=None, strip_controls=True, normalize_unicode=True)`
+  -> `SanitizationResult` — the general entry point.
+- `sanitize_for_html(value, **kwargs)`
+- `sanitize_for_sql_literal(value, **kwargs)`
+- `sanitize_for_shell_arg(value, **kwargs)`
+- `sanitize_for_filename(value, **kwargs)`
+- `sanitize_for_log(value, **kwargs)`
+- `sanitize_for_jsonpath(value, **kwargs)`
+- `SanitizationContext` — enum of the 6 supported contexts.
+- `SanitizationResult` — fields `value`, `context`, `applied_rules`,
+  `original_length`, `confidence`; properties `is_clean` and
+  `was_truncated`; method `to_dict()`.
+
+## Usage
+
+```python
+from tiny_input_sanitize import sanitize_for_html
+
+r = sanitize_for_html("<script>alert(1)</script>")
+print(r.value)        # sanitized
+print(r.confidence)   # 0.0-1.0
+print(r.is_clean)     # False when a rule fired
+```
+
+## Notes
+
+- The confidence score reflects how much of the input was altered, so a
+  caller can decide whether to accept a heavily rewritten value.
+- Rules are additive: `allow`, `deny`, `max_length`, `strip_controls`,
+  `normalize_unicode`.
+- Context-specific sanitizers are the intended API; the generic
+  `sanitize_text` needs an explicit context.
+
+## Links
+
+- Source: https://github.com/hussain-alsaibai/tiny-input-sanitize
+- Part of the OpenClaw zero-dependency tiny-* ecosystem.
