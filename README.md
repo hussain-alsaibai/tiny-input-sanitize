@@ -5,7 +5,8 @@
 Stdlib only. MIT licensed. ~380 LOC. 49 tests.
 
 ```bash
-pip install tiny-input-sanitize
+# From GitHub (recommended -- not yet on PyPI)
+pip install git+https://github.com/hussain-alsaibai/tiny-input-sanitize.git
 ```
 
 ---
