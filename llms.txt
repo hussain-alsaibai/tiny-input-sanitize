@@ -5,8 +5,10 @@ argument, filename, log, and JSONPath. Single file.
 
 ## Run
 
+NOTE: unpublished on PyPI -- the bare name is not on the index, so the `pip install <name>` form 404s. The URL below is the install.
+
 ```bash
-pip install tiny-input-sanitize
+pip install "tiny-input-sanitize @ git+https://github.com/hussain-alsaibai/tiny-input-sanitize.git"
 ```
 
 ## API
